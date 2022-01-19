@@ -1,12 +1,11 @@
 //IIFE no construida aun, falta para construir la URL y cambiar el atributo
-const construyeUrl = (() => {
+const autoejecutable = (() => {
     let funcionPrivada = (url,id)=>{
-        elemento =document.getElementById(id)
+        let elemento = document.getElementById(id)
         elemento.setAttribute('src',url)
     }
     return {
         funcionPublica: (url,id) => funcionPrivada(url,id)
-
         }
     })();
 
@@ -36,7 +35,7 @@ class Multimedia {
 class Reproductor extends Multimedia{
     constructor(url,id){
         super(url);
-        let_id = id;
+        let _id = id;
         this.getId = () => {
             return _id;
         };
@@ -51,17 +50,18 @@ class Reproductor extends Multimedia{
         this.setId(nuevo_id);
     }
     playMultimedia(){
-        videos.publico(this.url, this.id);
+        autoejecutable.funcionPublica(this.url, this.id);
     }
     setInicio(segundos){
-        document.getElementById(this.id).setAttribute("src",url`?start=${segundos}`);
+        document.getElementById(this.id).setAttribute("src",`${this.url}?start=${segundos}`);
     }
 }
 //instanciar clases hijas
-let pelicula = new Reproductor("https://www.youtube.com/watch?v=B57W1IX86Ck", "peliculas");
-let musica = new Reproductor("https://www.youtube.com/watch?v=bKuNVYdTPrg", "musica");
-let serie = new Reproductor("https://www.youtube.com/watch?v=gNHP9RmL27U", "series");
+let pelicula = new Reproductor("https://www.youtube.com/embed/B57W1IX86Ck", "peliculas");
+let musica = new Reproductor("https://www.youtube.com/embed/vUgLcIUVkCY", "musica");
+let serie = new Reproductor("https://www.youtube.com/embed/gNHP9RmL27U", "series");
 //Llamar a playMultimedia
 pelicula.playMultimedia();
 musica.playMultimedia();
 serie.playMultimedia();
+pelicula.setInicio(30);
